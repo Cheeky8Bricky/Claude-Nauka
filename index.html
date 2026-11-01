@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Genetyka – nauka</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">🧬 <span>Wstęp do genetyki</span></div>
+    <nav class="tabs" role="tablist">
+      <button class="tab" data-view="quiz" role="tab">Quiz</button>
+      <button class="tab" data-view="cards" role="tab">Fiszki</button>
+      <button class="tab" data-view="dict" role="tab">Słownik</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- FILTR ZAGADNIEŃ -->
+    <section class="filter">
+      <button id="filterToggle" class="filter-toggle" aria-expanded="false">
+        <span>Zagadnienia: <strong id="filterSummary">wszystkie</strong></span>
+        <span class="chev">▾</span>
+      </button>
+      <div id="filterPanel" class="filter-panel" hidden>
+        <div class="filter-actions">
+          <button data-preset="all">Wszystkie</button>
+          <button data-preset="wyklady">Tylko wykłady</button>
+          <button data-preset="uzupelnienie">Tylko uzupełnienie</button>
+          <button data-preset="none">Wyczyść</button>
+        </div>
+        <div id="topicGroups"></div>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="view-quiz" class="view" hidden>
+      <div id="quizStart" class="card center">
+        <h2>Quiz</h2>
+        <p class="muted" id="quizAvail"></p>
+        <div class="field">
+          <span>Liczba pytań</span>
+          <div class="seg" id="quizLen">
+            <button data-n="10" class="on">10</button>
+            <button data-n="20">20</button>
+            <button data-n="0">Wszystkie</button>
+          </div>
+        </div>
+        <label class="check"><input type="checkbox" id="onlyWrong"> Tylko pytania, w których się pomyliłem <span id="wrongCount" class="pill"></span></label>
+        <button class="primary big" id="quizGo">Start</button>
+      </div>
+
+      <div id="quizRun" hidden>
+        <div class="progress"><div id="quizBar"></div></div>
+        <div class="qmeta"><span id="qTopic" class="badge"></span><span id="qSrc" class="badge ghost"></span><span id="qCount" class="muted"></span></div>
+        <div class="card">
+          <h3 id="qText" class="qtext"></h3>
+          <ol id="qOpts" class="opts"></ol>
+        </div>
+        <div class="row end">
+          <button id="quizQuit" class="ghostbtn">Zakończ</button>
+          <button id="quizNext" class="primary" hidden>Dalej →</button>
+        </div>
+        <p class="hint muted">Skróty: 1–4 wybór odpowiedzi, Enter – dalej</p>
+      </div>
+
+      <div id="quizEnd" class="card" hidden>
+        <h2 id="endScore"></h2>
+        <p class="muted" id="endMsg"></p>
+        <div id="endWrong"></div>
+        <div class="row">
+          <button class="primary" id="againWrong">Powtórz błędne</button>
+          <button id="againNew">Nowy quiz</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FISZKI -->
+    <section id="view-cards" class="view" hidden>
+      <div class="row between wrap">
+        <label class="check"><input type="checkbox" id="withGlossary" checked> Dołącz pojęcia ze słownika</label>
+        <button id="cardsShuffle" class="ghostbtn">🔀 Przetasuj</button>
+      </div>
+      <div class="qmeta"><span id="cTopic" class="badge"></span><span id="cCount" class="muted"></span></div>
+      <div class="flip-wrap">
+        <button id="flashcard" class="flashcard" aria-live="polite">
+          <div class="face front"><div id="cFront"></div><small class="muted">kliknij, aby odwrócić</small></div>
+          <div class="face back"><div id="cBack"></div></div>
+        </button>
+      </div>
+      <div class="row center gap">
+        <button id="cPrev">←</button>
+        <button id="cAgain" class="warn">↻ Jeszcze nie umiem</button>
+        <button id="cKnow" class="ok">✓ Umiem</button>
+        <button id="cNext">→</button>
+      </div>
+      <p class="hint muted">Skróty: spacja – odwróć, ← → – nawigacja. „Jeszcze nie umiem” odkłada kartę na koniec.</p>
+    </section>
+
+    <!-- SŁOWNIK -->
+    <section id="view-dict" class="view" hidden>
+      <input id="dictSearch" class="search" type="search" placeholder="Szukaj pojęcia lub definicji…">
+      <p id="dictCount" class="muted"></p>
+      <div id="dictList"></div>
+    </section>
+  </main>
+
+  <script src="data/topics.js"></script>
+  <script src="data/questions.js"></script>
+  <script src="data/flashcards.js"></script>
+  <script src="data/glossary.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
