@@ -21,13 +21,21 @@
     --accent: #5fbf93; --accent-soft: #1f3329; --ok: #5fbf7a; --ok-soft: #1c3223;
     --bad: #ef7d72; --bad-soft: #3a2220; --warn: #e5b04f; --warn-soft: #382d18;
     --shadow: none;
+    color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  --bg: #141815; --surface: #1d221f; --text: #e6ebe7; --muted: #95a199; --line: #2e3530;
+    --accent: #5fbf93; --accent-soft: #1f3329; --ok: #5fbf7a; --ok-soft: #1c3223;
+    --bad: #ef7d72; --bad-soft: #3a2220; --warn: #e5b04f; --warn-soft: #382d18;
+    --shadow: none;
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 body {
   background: var(--bg); color: var(--text);
-  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font: 16px/1.55 "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 button { font: inherit; color: inherit; cursor: pointer; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: .55rem .9rem; }
 button:hover { border-color: var(--accent); }
@@ -43,16 +51,18 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 
 /* header */
 .top {
-  position: sticky; top: 0; z-index: 5; background: var(--bg);
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg);
   display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-  padding: .75rem 16px; border-bottom: 1px solid var(--line);
+  padding-block: .75rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); border-bottom: 1px solid var(--line);
 }
 .brand { font-weight: 650; }
 .tabs { display: flex; gap: .25rem; background: var(--surface); padding: .25rem; border-radius: 12px; border: 1px solid var(--line); }
 .tab { border: 0; background: transparent; padding: .45rem 1rem; }
 .tab.on { background: var(--accent); color: #fff; }
 
-main { max-width: 760px; margin: 0 auto; padding: 1rem 16px 3rem; }
+main { max-width: 760px; margin: 0 auto; padding-block: 1rem 3rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
 /* filter */
 .filter { margin-bottom: 1.25rem; }
